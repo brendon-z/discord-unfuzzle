@@ -1,14 +1,7 @@
-const prompt = require('prompt-sync')();
 const scraelmbr = require('scraelmbr');
 
-console.log('Input desired strings, separate separate strings with @');
-const inputString = prompt('=> ');
-const option = prompt('Do you want to scramble the words in a readable manner? y OR n? ')
-
-const outputArray = stringUnjumble(inputString, option);
-console.log(outputArray);
-
-function stringUnjumble(inputString, option) {
+// Unjumbles the string
+module.exports = function stringUnjumble(inputString, option) {
 
     // Stores a database of "unjumbled" strings cause yes :)
     let stringDb = inputString.split('@');

@@ -1,6 +1,12 @@
 {
   "type": "commonjs",
   "dependencies": {
+    "@discordjs/builders": "^1.0.0",
+    "@discordjs/rest": "^1.0.0",
+    "axios": "^0.27.2",
+    "discord-api-types": "^0.36.2",
+    "discord.js": "^14.0.2",
+    "dotenv": "^16.0.1",
     "prompt-sync": "^4.2.0",
     "scraelmbr": "^1.0.1"
   }
