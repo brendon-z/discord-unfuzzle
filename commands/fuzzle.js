@@ -11,13 +11,11 @@ module.exports = {
     let channel = interaction.channel;
 
     if (stringOption) {
-      const fuzzledMessage = stringUnjumble(stringOption, 'n');
-      await interaction.reply(`${fuzzledMessage}`);
+      await interaction.reply(`${stringUnjumble(stringOption, 'n')}`);
     } else {
       channel.messages.fetch({ limit: 2 }).then(messages => {
         let latestMessage = messages.first();
-        const fuzzledMessage = stringUnjumble(latestMessage.content, 'n');
-        interaction.reply(`${fuzzledMessage}`);
+        interaction.reply(`${stringUnjumble(latestMessage.content, 'n')}`);
       });
     }
 	},
