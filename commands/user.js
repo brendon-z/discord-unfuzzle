@@ -1,5 +1,6 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const moment = require('moment');
+const { getImageUrl, hasImageUrl } = require('../userImages/userImages'); 
 
 module.exports = {
 	data: new SlashCommandBuilder()
@@ -8,7 +9,14 @@ module.exports = {
 		.addUserOption(option => option.setName('target').setDescription('Select a user')),
 	async execute(interaction) {
     let target = interaction.options.getUser('target');
+
+    if (!target) {
+      target = interaction.user
+    }
+
     let member = interaction.guild.members.cache.get(target.id);
+    const imageUrlAssociated = getImageUrl(target.id)
+    console.log(imageUrlAssociated);
   
     const userInfo = {
       color: 0x8300FF,
@@ -40,7 +48,8 @@ module.exports = {
         },
       ],
       image: {
-        url: 'https://upload.wikimedia.org/wikipedia/commons/4/45/Double-compound-pendulum.gif',
+        ...(hasImageUrl(target.id)) && {url: imageUrlAssociated},
+        ...(!hasImageUrl(target.id)) && {url: 'https://upload.wikimedia.org/wikipedia/commons/4/45/Double-compound-pendulum.gif'},
       },
       timestamp: new Date(),
       footer: {
@@ -49,6 +58,6 @@ module.exports = {
       },
     };
 
-		await interaction.reply({ embeds: [userInfo]});
+		await interaction.reply({ embeds: [userInfo] });
 	},
 };
