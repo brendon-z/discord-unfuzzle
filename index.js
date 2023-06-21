@@ -1,7 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { Client, GatewayIntentBits, Partials, Collection, ActivityType } from 'discord.js';
-import { token } from './config.js';
+import config from './config.json' assert { type: "json" };
 import cron from 'cron';
 import { constructEmbed } from './src/utils/calendars/calendar.js';
 import dotenv from 'dotenv';
@@ -56,6 +56,6 @@ client.on('interactionCreate', async interaction => {
 });
 
 // Login bot using token
-client.login(token);
+client.login(config.token);
 
 export default client;

@@ -3,7 +3,7 @@ import fs from 'fs';
 import path from 'path';
 import { REST } from '@discordjs/rest';
 import { Routes } from 'discord-api-types/v9';
-import config from '../../config.js';
+import config from '../../config.json' assert { type: "json" };
 
 const { clientId, guildId, token } = config;
 
