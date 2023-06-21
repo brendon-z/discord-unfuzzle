@@ -3,3 +3,10 @@ node_modules
 config.json
 saveState.json
 calendars/calFiles
+
+### VSCode
+.vscode/**/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
