@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const { constructEmbed } = require('../calendars/calendar');
+const { constructEmbed } = require('../utils/calendars/calendar');
 
 module.exports = {
 	data: new SlashCommandBuilder()

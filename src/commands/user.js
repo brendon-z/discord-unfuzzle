@@ -1,6 +1,6 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const moment = require('moment');
-const { getImageUrl, hasImageUrl } = require('../userImages/userImages'); 
+const { getImageUrl, hasImageUrl } = require('../utils/userImages/userImages'); 
 
 module.exports = {
 	data: new SlashCommandBuilder()

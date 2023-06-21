@@ -3,7 +3,7 @@ const path = require('node:path');
 const { Client, GatewayIntentBits, Partials, Collection, ActivityType } = require('discord.js');
 const { token } = require('./config.json');
 const cron = require('cron');
-const { constructEmbed } = require('./calendars/calendar');
+const { constructEmbed } = require('./src/utils/calendars/calendar');
 require('dotenv').config();
 const guildId = process.env.GUILDID;
 const channelId = process.env.CHANNELID;
@@ -17,7 +17,7 @@ module.exports = {
 
 // Command handler set up
 client.commands = new Collection();
-const commandsPath = path.join(__dirname, 'commands');
+const commandsPath = path.join(__dirname, 'src/commands');
 const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.js'));
 
 for (const file of commandFiles) {

@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const { playerStats, validPlayer, playerDetails } = require('../gameStats/r6stats');
+const { playerStats, validPlayer, playerDetails } = require('../utils/gameStats/r6stats');
 
 module.exports = {
 	data: new SlashCommandBuilder()

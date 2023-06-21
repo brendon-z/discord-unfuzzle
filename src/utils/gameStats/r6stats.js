@@ -1,5 +1,3 @@
-const user = require('../commands/user');
-
 require('dotenv').config();
 const R6API = require('r6api.js').default;
 

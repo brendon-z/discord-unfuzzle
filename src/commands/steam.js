@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const { getRecentGames, getSteamDetails } = require('../gameStats/steamStats');
+const { getRecentGames, getSteamDetails } = require('../utils/gameStats/steamStats');
 const moment = require('moment');
 
 module.exports = {

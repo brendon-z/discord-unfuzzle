@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const { addToMap, getImageUrl } = require('../userImages/userImages'); 
+const { addToMap, getImageUrl } = require('../utils/userImages/userImages'); 
 
 module.exports = {
 	data: new SlashCommandBuilder()

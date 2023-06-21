@@ -1,4 +1,4 @@
-const { createUserEntry, savePersist, loadPersist } = require('../dbManage');
+const { createUserEntry, savePersist, loadPersist } = require('../../database/dbManage');
 
 // Add a userId - imageUrl pair to the map data structure
 function addToMap(userId, imageUrl) {

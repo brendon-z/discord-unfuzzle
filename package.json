@@ -1,5 +1,11 @@
 {
   "type": "commonjs",
+  "scripts": {
+    "start": "node .",
+    "dev": "nodemon .",
+    "deploy-commands": "node src/utils/deploy-commands.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
   "dependencies": {
     "@discordjs/rest": "^1.0.0",
     "ansi-regex": "^6.0.1",

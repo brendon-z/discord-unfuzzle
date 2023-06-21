@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const stringUnjumble = require('../string_unjumble.js');
+const stringUnjumble = require('../utils/string_unjumble.js');
 
 module.exports = {
 	data: new SlashCommandBuilder()
