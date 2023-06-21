@@ -1,11 +1,16 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { Client, GatewayIntentBits, Partials, Collection, ActivityType } from 'discord.js';
-import config from './config.json' assert { type: "json" };
 import cron from 'cron';
 import { constructEmbed } from './src/utils/calendars/calendar.js';
 import dotenv from 'dotenv';
 
+import { createRequire } from 'module';
+const require = createRequire(import.meta.url);
+const config = require('./config.json');
+
+// import config from './config.json' assert { type: "json" };
+// This is a hack because assert imports for json are experimental
 const guildId = process.env.GUILDID;
 const channelId = process.env.CHANNELID;
 dotenv.config();

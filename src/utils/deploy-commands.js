@@ -3,7 +3,12 @@ import fs from 'fs';
 import path from 'path';
 import { REST } from '@discordjs/rest';
 import { Routes } from 'discord-api-types/v9';
-import config from '../../config.json' assert { type: "json" };
+
+// import config from '../../config.json' assert { type: "json" };
+// This is a hack because assert imports for json are experimental
+import { createRequire } from 'module';
+const require = createRequire(import.meta.url);
+const config = require('../../config.json');
 
 const { clientId, guildId, token } = config;
 
