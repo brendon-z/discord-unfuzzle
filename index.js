@@ -1,7 +1,12 @@
 const fs = require('node:fs');
 const path = require('node:path');
-const { Client, GatewayIntentBits, Partials, Collection } = require('discord.js');
+const { Client, GatewayIntentBits, Partials, Collection, ActivityType } = require('discord.js');
 const { token } = require('./config.json');
+const cron = require('cron');
+const { constructEmbed } = require('./calendars/calendar');
+require('dotenv').config();
+const guildId = process.env.GUILDID;
+const channelId = process.env.CHANNELID;
 
 // Create new discord client instance
 const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.MessageContent], partials: [Partials.Channel] });
@@ -24,7 +29,15 @@ for (const file of commandFiles) {
 }
 
 client.on('ready', () => {
-  console.log(`Logged in as ${client.user.tag}!`);
+  console.log(`Logged in as ${client.user.tag}!`)
+  client.user.setActivity('/command', { type: ActivityType.Playing });
+  let scheduledMessage = new cron.CronJob('00 00 9 * * *', async () => {
+	const guild = client.guilds.cache.get(guildId);
+	const channel = guild.channels.cache.get(channelId);
+	let onCampusEmbed = await constructEmbed(client);
+	channel.send({ embeds : [onCampusEmbed] });
+  })
+  scheduledMessage.start();
 });
 
 
