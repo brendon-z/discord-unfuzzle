@@ -53,7 +53,7 @@ module.exports = {
       },
       timestamp: new Date(),
       footer: {
-        text: 'Lorem Ipsum is my favourite ice cream',
+        text: 'Want another image? Use /image!',
         icon_url: 'https://i.imgur.com/AfFp7pu.png',
       },
     };
