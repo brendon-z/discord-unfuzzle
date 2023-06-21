@@ -1,9 +1,9 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { Client, GatewayIntentBits, Partials, Collection, ActivityType } from 'discord.js';
-import { token } from './config.json';
+import { token } from './config.js';
 import cron from 'cron';
-import { constructEmbed } from './src/utils/calendars/calendar';
+import { constructEmbed } from './src/utils/calendars/calendar.js';
 import dotenv from 'dotenv';
 
 const guildId = process.env.GUILDID;
@@ -13,18 +13,14 @@ dotenv.config();
 // Create new discord client instance
 const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.MessageContent], partials: [Partials.Channel] });
 
-module.exports = {
-  client
-};
-
 // Command handler set up
 client.commands = new Collection();
-const commandsPath = path.join(__dirname, 'src/commands');
+const commandsPath = path.join(process.cwd(), 'src', 'commands');
 const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.js'));
 
 for (const file of commandFiles) {
 	const filePath = path.join(commandsPath, file);
-	const command = require(filePath);
+	const command = (await import(filePath)).default;
 	// Set a new item in the Collection
 	// With the key as the command name and the value as the exported module
 	client.commands.set(command.data.name, command);
@@ -61,3 +57,5 @@ client.on('interactionCreate', async interaction => {
 
 // Login bot using token
 client.login(token);
+
+export default client;
