@@ -33,7 +33,7 @@ function loadPersist() {
 }
 
 function userCalendarExists(userId) {
-	data = loadPersist();
+	const data = loadPersist();
 	if (data.get(userId) === undefined || data.get(userId).calLink === "") {
 		return false;
 	}
