@@ -1,5 +1,11 @@
-require('dotenv').config();
-const R6API = require('r6api.js').default;
+// require('dotenv').config();
+
+// const R6API = require('r6api.js').default;
+
+import dotenv from 'dotenv';
+import R6API from 'r6api.js';
+
+dotenv.config();
 
 const { UBI_EMAIL: email = '', UBI_PASSWORD: password = '' } = process.env;
 const r6api = new R6API({ email, password });
@@ -25,4 +31,4 @@ async function playerDetails(platform, username) {
 };
 
 
-module.exports = { playerStats, playerDetails, validPlayer}
+export { playerStats, playerDetails, validPlayer};

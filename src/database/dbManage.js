@@ -1,4 +1,4 @@
-const fs = require('fs');
+import fs from 'fs';
 
 function createUserEntry(userId) {
     const newUser = {
@@ -40,4 +40,4 @@ function userCalendarExists(userId) {
   return true;
 }
 
-module.exports = {createUserEntry, savePersist, loadPersist, userCalendarExists}
+export { createUserEntry, savePersist, loadPersist, userCalendarExists };

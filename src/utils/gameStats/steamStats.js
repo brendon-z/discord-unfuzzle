@@ -1,4 +1,4 @@
-const api = require('steam-js-api');
+import api from 'steam-js-api';
 
 const { STEAM_APIKEY: apiKey = ''} = process.env;
 api.setKey(apiKey);
@@ -23,4 +23,4 @@ async function getSteamDetails(steamId) {
   }
 }
 
-module.exports = { getRecentGames, getSteamDetails };
+export { getRecentGames, getSteamDetails }

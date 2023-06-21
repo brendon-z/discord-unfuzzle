@@ -1,10 +1,10 @@
-const ical = require('node-ical');
-const moment = require('moment-timezone');
-const http = require('http'); // or 'https' for HTTPS URLs
-const fs = require('fs');
-const { DownloaderHelper } = require('node-downloader-helper');
+import ical from 'node-ical';
+import moment from 'moment-timezone';
+import http from 'http'; // or 'https' for HTTPS URLs
+import fs from 'fs';
+import { DownloaderHelper } from 'node-downloader-helper';
 
-const { createUserEntry, savePersist, loadPersist, userCalendarExists } = require('../../database/dbManage');
+import { createUserEntry, savePersist, loadPersist, userCalendarExists } from '../../database/dbManage.js';
 
 function addCalendar(userId, calLink) {
     let userMap = loadPersist();
@@ -154,4 +154,4 @@ async function constructEmbed(client, target = 'everyone', date = 'today') {
     return onCampusEmbed;
 }
 
-module.exports = { addCalendar, getCalendar, parseCalendar, checkClasses, constructEmbed };
+export { addCalendar, getCalendar, parseCalendar, checkClasses, constructEmbed };

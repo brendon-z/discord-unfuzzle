@@ -1,7 +1,7 @@
-const scraelmbr = require('scraelmbr');
+import scraelmbr from 'scraelmbr';
 
 // Unjumbles the string
-module.exports = function stringUnjumble(inputString, option) {
+export default function stringUnjumble(inputString, option) {
 
   // Stores a database of "unjumbled" strings cause yes :)
   let stringDb = inputString.split('@');

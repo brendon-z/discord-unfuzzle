@@ -1,8 +1,8 @@
-const { SlashCommandBuilder } = require('@discordjs/builders');
-const { getRecentGames, getSteamDetails } = require('../utils/gameStats/steamStats');
-const moment = require('moment');
+import { SlashCommandBuilder } from '@discordjs/builders';
+import { getRecentGames, getSteamDetails } from '../utils/gameStats/steamStats.js';
+import moment from 'moment';
 
-module.exports = {
+export default {
 	data: new SlashCommandBuilder()
 		.setName('steam')
 		.setDescription('Gets steam stats for user')

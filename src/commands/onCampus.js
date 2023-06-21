@@ -1,7 +1,7 @@
-const { SlashCommandBuilder } = require('@discordjs/builders');
-const { parseCalendar, getCalendar, checkClasses, constructEmbed } = require('../utils/calendars/calendar');
+import { SlashCommandBuilder } from '@discordjs/builders';
+import { parseCalendar, getCalendar, checkClasses, constructEmbed } from '../utils/calendars/calendar.js';
 
-module.exports = {
+export default {
 	data: new SlashCommandBuilder()
 		.setName('campus')
 		.setDescription('Check who is on campus')

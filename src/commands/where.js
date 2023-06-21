@@ -1,7 +1,7 @@
-const { SlashCommandBuilder } = require('@discordjs/builders');
-const { constructEmbed } = require('../utils/calendars/calendar');
+import { SlashCommandBuilder } from '@discordjs/builders';
+import { constructEmbed } from '../utils/calendars/calendar.js';
 
-module.exports = {
+export default {
 	data: new SlashCommandBuilder()
 		.setName('where')
 		.setDescription('Where is a specific user?')

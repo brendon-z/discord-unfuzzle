@@ -1,4 +1,4 @@
-const { createUserEntry, savePersist, loadPersist } = require('../../database/dbManage');
+import { createUserEntry, savePersist, loadPersist } from '../../database/dbManage.js';
 
 // Add a userId - imageUrl pair to the map data structure
 function addToMap(userId, imageUrl) {
@@ -29,4 +29,4 @@ function hasImageUrl(userId) {
   return userMap.has(userId);
 }
 
-module.exports = { addToMap, getImageUrl, hasImageUrl };
+export { addToMap, getImageUrl, hasImageUrl };

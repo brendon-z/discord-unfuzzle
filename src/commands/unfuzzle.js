@@ -1,7 +1,7 @@
-const { SlashCommandBuilder } = require('@discordjs/builders');
-const stringUnjumble = require('../utils/string_unjumble.js');
+import { SlashCommandBuilder } from '@discordjs/builders';
+import stringUnjumble from '../utils/string_unjumble.js';
 
-module.exports = {
+export default {
 	data: new SlashCommandBuilder()
 		.setName('unfuzzle')
 		.setDescription('Unfuzzles the message last sent in the channel'),

@@ -1,8 +1,8 @@
-const { SlashCommandBuilder } = require('@discordjs/builders');
-const moment = require('moment');
-const { getImageUrl, hasImageUrl } = require('../utils/userImages/userImages'); 
+import { SlashCommandBuilder } from '@discordjs/builders';
+import moment from 'moment';
+import { getImageUrl, hasImageUrl } from '../utils/userImages/userImages.js';
 
-module.exports = {
+export default {
 	data: new SlashCommandBuilder()
 		.setName('user')
 		.setDescription('Replies with user info!')

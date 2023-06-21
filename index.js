@@ -1,12 +1,14 @@
-const fs = require('node:fs');
-const path = require('node:path');
-const { Client, GatewayIntentBits, Partials, Collection, ActivityType } = require('discord.js');
-const { token } = require('./config.json');
-const cron = require('cron');
-const { constructEmbed } = require('./src/utils/calendars/calendar');
-require('dotenv').config();
+import fs from 'node:fs';
+import path from 'node:path';
+import { Client, GatewayIntentBits, Partials, Collection, ActivityType } from 'discord.js';
+import { token } from './config.json';
+import cron from 'cron';
+import { constructEmbed } from './src/utils/calendars/calendar';
+import dotenv from 'dotenv';
+
 const guildId = process.env.GUILDID;
 const channelId = process.env.CHANNELID;
+dotenv.config();
 
 // Create new discord client instance
 const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.MessageContent], partials: [Partials.Channel] });

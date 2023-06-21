@@ -1,7 +1,7 @@
-const { SlashCommandBuilder } = require('@discordjs/builders');
-const { playerStats, validPlayer, playerDetails } = require('../utils/gameStats/r6stats');
+import { SlashCommandBuilder } from '@discordjs/builders';
+import { playerStats, validPlayer, playerDetails } from '../utils/gameStats/r6stats.js';
 
-module.exports = {
+export default {
 	data: new SlashCommandBuilder()
 		.setName('r6')
 		.setDescription('Gets r6 stats for player')
