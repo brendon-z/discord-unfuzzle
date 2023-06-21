@@ -2,6 +2,7 @@
   "type": "commonjs",
   "dependencies": {
     "@discordjs/rest": "^1.0.0",
+    "ansi-regex": "^6.0.1",
     "axios": "^0.27.2",
     "cron": "^2.3.1",
     "discord-api-types": "^0.36.2",
@@ -14,6 +15,7 @@
     "prompt-sync": "^4.2.0",
     "r6api.js": "^4.3.0",
     "scraelmbr": "^1.0.1",
-    "steam-js-api": "^1.1.0"
+    "steam-js-api": "^1.1.0",
+    "strip-ansi": "^7.1.0"
   }
 }
