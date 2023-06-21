@@ -8,3 +8,5 @@ services:
 
       volumes:
         - ./logs:/data/logs
+
+      # Consider importing mongodb and setting the volume there for persistency
