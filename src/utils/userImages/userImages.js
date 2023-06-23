@@ -16,11 +16,11 @@ function addToMap(userId, imageUrl) {
 // Get an imageUrl from an input userId
 function getImageUrl(userId) {
 	let userMap = loadPersist();
-	user = userMap.get(userId)
+	let user = userMap.get(userId)
 	if (user == null) {
 		return null;
 	}
-	return userMap.get(userId).imageUrl;
+	return user.imageUrl;
 }
 
 // Checks whether an image url is associated with key userId
