@@ -11,9 +11,6 @@ const config = require('./config.json');
 
 // import config from './config.json' assert { type: "json" };
 // This is a hack because assert imports for json are experimental
-const guildId = process.env.GUILDID;
-const channelId = process.env.CHANNELID;
-dotenv.config();
 
 // Create new discord client instance
 const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.MessageContent], partials: [Partials.Channel] });
@@ -35,8 +32,8 @@ client.on('ready', () => {
 	console.log(`Logged in as ${client.user.tag}!`)
 	client.user.setActivity('/command', { type: ActivityType.Playing });
 	let scheduledMessage = new cron.CronJob('00 00 9 * * *', async () => {
-		const guild = client.guilds.cache.get(guildId);
-		const channel = guild.channels.cache.get(channelId);
+		const guild = client.guilds.cache.get(config.guildId);
+		const channel = guild.channels.cache.get(config.channelId);
 		let onCampusEmbed = await constructEmbed(client);
 		channel.send({ embeds : [onCampusEmbed] });
 	})

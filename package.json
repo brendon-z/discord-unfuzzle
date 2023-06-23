@@ -1,7 +1,7 @@
 {
   "type": "module",
   "scripts": {
-    "start": "node .",
+    "start": "node index.js",
     "dev": "nodemon .",
     "deploy-commands": "node src/utils/deploy-commands.js",
     "test": "echo \"Error: no test specified\" && exit 1"
