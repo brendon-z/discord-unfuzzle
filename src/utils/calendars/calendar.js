@@ -136,10 +136,10 @@ async function constructEmbed(client, target = 'everyone', date = 'today') {
                 let userField = {name: (await client.users.fetch(user)).username, value: classStr}
                 onCampusEmbed.fields.push(userField);
             }
-        } else if (daylist[day] !== "Saturday" && daylist[day] !== "Sunday"){
+        } else {
             onCampusEmbed = {
                 color: 0x8300FF,
-                title: `Hey, it\'s ${daylist[today]}`,
+                title: `Hey, it\'s ${daylist[day]}`,
                 description: `You know people usually don't go to uni today right?`,
             }
         }
