@@ -1,7 +1,6 @@
 import ical from 'node-ical';
 import moment from 'moment-timezone';
 import http from 'http'; // or 'https' for HTTPS URLs
-import fs from 'fs';
 import { DownloaderHelper } from 'node-downloader-helper';
 
 import { createUserEntry, savePersist, loadPersist, userCalendarExists } from '../../database/dbManage.js';
@@ -10,11 +9,12 @@ function addCalendar(userId, calLink) {
     let userMap = loadPersist();
     let user = userMap.get(userId)
 
-    const filename = calLink.replace("http://my.unsw.edu.au/cal/pttd/", '')
+    if (!calLink.includes("http:")) return;
     const dl = new DownloaderHelper(calLink, 'calendars/calFiles');
 
     dl.on('end', () => console.log('Download Completed'));
-    dl.start();
+    dl.on('error', (err) => console.log('Download Failed', err));
+    dl.start().catch(err => console.error(err));    
 
     if (user == null) {
       user = createUserEntry(userId)
@@ -70,7 +70,6 @@ async function parseCalendar(link, date) {
         }
     }
     let todaysClasses = []
-
     const data = ical.sync.parseFile('calendars/calFiles/' + link.replace('http://my.unsw.edu.au/cal/pttd/',''))
     for (let k in data) {
         if (!Object.prototype.hasOwnProperty.call(data, k)) continue;
@@ -79,8 +78,9 @@ async function parseCalendar(link, date) {
         if (event.type !== 'VEVENT' || !event.rrule) continue;
         
         const dates = event.rrule.between(new Date(2023, 0, 1, 0, 0, 0, 0), new Date(2023, 11, 31, 0, 0, 0, 0))
+
         if (dates.length === 0) continue;
-    
+
         dates.forEach(date => {
             let newDate
             if (event.rrule.origOptions.tzid) {
@@ -111,8 +111,9 @@ async function constructEmbed(client, target = 'everyone', date = 'today') {
 
     if (userCalendarExists(target) || target === 'everyone') {
         let day = moment(date).day();
+        console.log(moment(date))
         if (isNaN(day)) {
-            day = moment().day();
+            day = moment(date).day();
         }
         let daylist = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
     
