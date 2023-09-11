@@ -1,4 +1,17 @@
 node_modules
 .env
-config.json
+
 saveState.json
+
+## Potentially update this later
+calendars/calFiles 
+
+config.json
+config.js
+
+### VSCode
+.vscode/**/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
