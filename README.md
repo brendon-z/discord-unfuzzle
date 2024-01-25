@@ -1,10 +1,6 @@
 # discord-unfuzzle
 
-<<<<<<< HEAD
-unfuzzle is a a simple discord bot with some fun message manipulation features.
-=======
 unfuzzle is a discord bot with some fun message manipulation and utility features.
->>>>>>> 4921f9091e361c5252fe82434b4d2d940d66b5b5
 
 ## fuzzling
 That's a word I made up to describe a peculiar way one of my friends would swap the first and last letters in every word of a sentence.
