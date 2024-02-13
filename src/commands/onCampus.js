@@ -12,10 +12,12 @@ export default {
         if (!date) {
             date = "today";
         } else {
-			try {
-				date = date.split("-").reverse().join("-");
-			} catch (error) {
-				console.log(date + ' ' + error);
+			if (date !== 'today' && date !== 'tomorrow' && date !== 'yesterday') {
+				try {
+					date = date.split("-").reverse().join("-");
+				} catch (error) {
+					console.log(date + ' ' + error);
+				}
 			}
 		}
 

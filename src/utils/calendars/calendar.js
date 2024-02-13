@@ -4,6 +4,7 @@ import http from 'http'; // or 'https' for HTTPS URLs
 import { DownloaderHelper } from 'node-downloader-helper';
 
 import { createUserEntry, savePersist, loadPersist, userCalendarExists } from '../../database/dbManage.js';
+import config from '../../../config.json' assert { type: "json" }
 
 function addCalendar(userId, calLink) {
     let userMap = loadPersist();
@@ -77,7 +78,7 @@ async function parseCalendar(link, date) {
         const event = data[k];
         if (event.type !== 'VEVENT' || !event.rrule) continue;
         
-        const dates = event.rrule.between(new Date(2023, 0, 1, 0, 0, 0, 0), new Date(2023, 11, 31, 0, 0, 0, 0))
+        const dates = event.rrule.between(new Date(config.currentYear, 0, 1, 0, 0, 0, 0), new Date(config.currentYear, 11, 31, 0, 0, 0, 0))
 
         if (dates.length === 0) continue;
 
@@ -98,30 +99,42 @@ async function parseCalendar(link, date) {
             const start = moment(newDate)
             if (currDate.isSame(start, 'date') && event.location !== 'Online') {
                 // console.log('Recurrence start:', start, " today? " + currDate.isSame(start, 'date'));
-                todaysClasses.push({className: event.summary, time: start.add(10, 'hours').format('h:mm a'), location: event.location})
+                todaysClasses.push({className: event.summary, time: start.add(10, 'hours'), location: event.location})
             }
         });
-        // console.log('-----------------------------------------------------------------------------------------');
         }
     return todaysClasses;
 }
 
 async function constructEmbed(client, target = 'everyone', date = 'today') {
     let onCampusEmbed;
+    let day = moment().format('dddd')
 
     if (userCalendarExists(target) || target === 'everyone') {
-        let day = moment(date).day();
-        console.log(moment(date))
-        if (isNaN(day)) {
-            day = moment(date).day();
+        let currTime = moment();
+        if (date === 'today') {
+            day = moment().format('dddd');
+            date = moment().format('YYYY-MM-DD');
+        } else if (date === 'tomorrow') {
+            day = moment().add(1, 'days').format('dddd');
+            date = moment().add(1, 'days').format('YYYY-MM-DD');
+        } else if (date === 'yesterday') {
+            day = moment().add(-1, 'days').format('dddd');
+            date = moment().add(-1, 'days').format('YYYY-MM-DD');
+        } else {
+            if (moment(date).isValid()) {
+                day = moment(date, 'YYYY-MM-DD').format('dddd');;
+            } else {
+                day = moment().format('dddd');
+                date = moment().format('YYYY-MM-DD');
+            }
         }
-        let daylist = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-    
-        if (daylist[day] !== "Saturday" && daylist[day] !== "Sunday") {
+
+        if (day !== "Saturday" && day !== "Sunday") {
             let atUni = await checkClasses(target, date);
             onCampusEmbed = {
                 color: 0x8300FF,
-                title: `On campus: ${daylist[day]}`,
+                title: `On campus: ${day}`,
                 fields: [],
                 footer: {
                     text: 'Please note there is no guarantee these people actually attend their classes',
@@ -131,8 +144,14 @@ async function constructEmbed(client, target = 'everyone', date = 'today') {
     
             for (let [user, classes] of atUni) {
                 let classStr = ""
-                for (let c of classes) {
-                    classStr += c.time + ': ' + c.className + ' at ' + c.location + '\n';
+                let indicator = false
+                for (let c of classes.sort(timeSort)) {
+                    if (c.time.isBefore(currTime) && indicator === false) {
+                        classStr += c.time.format('h:mm a') + ': ' + c.className + ' at ' + c.location + '\n'; // change later
+                        indicator = true
+                    } else {
+                        classStr += c.time.format('h:mm a') + ': ' + c.className + ' at ' + c.location + '\n';
+                    }
                 }
                 let userField = {name: (await client.users.fetch(user)).username, value: classStr}
                 onCampusEmbed.fields.push(userField);
@@ -140,7 +159,7 @@ async function constructEmbed(client, target = 'everyone', date = 'today') {
         } else {
             onCampusEmbed = {
                 color: 0x8300FF,
-                title: `Hey, it\'s ${daylist[day]}`,
+                title: `Hey, it\'s ${day}`,
                 description: `You know people usually don't go to uni today right?`,
             }
         }
@@ -154,5 +173,16 @@ async function constructEmbed(client, target = 'everyone', date = 'today') {
 
     return onCampusEmbed;
 }
+
+function timeSort(a, b) {
+    // Convert the time strings to Date objects for comparison
+    const dateA = new Date(`01/01/2000 ${a.time.format('h:mm a')}`);
+    const dateB = new Date(`01/01/2000 ${b.time.format('h:mm a')}`);
+    
+    // Compare the Date objects
+    if (dateA < dateB) return -1;
+    if (dateA > dateB) return 1;
+    return 0;
+  }
 
 export { addCalendar, getCalendar, parseCalendar, checkClasses, constructEmbed };
