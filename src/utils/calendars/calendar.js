@@ -99,7 +99,7 @@ async function parseCalendar(link, date) {
             const start = moment(newDate)
             if (currDate.isSame(start, 'date') && event.location !== 'Online') {
                 // console.log('Recurrence start:', start, " today? " + currDate.isSame(start, 'date'));
-                todaysClasses.push({className: event.summary, time: start.add(10, 'hours'), location: event.location})
+                todaysClasses.push({className: event.summary, time: start.add(dstOffset(), 'hours'), location: event.location})
             }
         });
         }
@@ -184,5 +184,18 @@ function timeSort(a, b) {
     if (dateA > dateB) return 1;
     return 0;
   }
+
+// Note this is for southern hemisphere
+function dstOffset() {
+    let standardTimezoneOffset  = (new Date('2023-06-01')).getTimezoneOffset();
+    let dstTimezoneOffset = (new Date('2023-01-01')).getTimezoneOffset();
+    let isDST = standardTimezoneOffset !== dstTimezoneOffset;
+
+    if (isDST) {
+        return 11
+    } else {
+        return 10
+    }
+}
 
 export { addCalendar, getCalendar, parseCalendar, checkClasses, constructEmbed };
