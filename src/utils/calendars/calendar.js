@@ -198,4 +198,29 @@ function dstOffset() {
     }
 }
 
-export { addCalendar, getCalendar, parseCalendar, checkClasses, constructEmbed };
+// Gets relative closest YYYY-MM-DD date string from input like 'sunday'
+function getDateFromString(dayString) {
+    const daysOfWeek = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
+    const today = new Date();
+    const currentDayOfWeek = today.getDay(); // 0 for Sunday, 1 for Monday, ..., 6 for Saturday
+    const targetDayOfWeek = daysOfWeek.indexOf(dayString.toLowerCase());
+
+    let daysToAdd;
+    if (targetDayOfWeek >= currentDayOfWeek) {
+        daysToAdd = targetDayOfWeek - currentDayOfWeek;
+    } else {
+        daysToAdd = - (currentDayOfWeek - targetDayOfWeek);
+    }
+
+    const targetDate = new Date(today);
+    targetDate.setDate(today.getDate() + daysToAdd);
+
+    const year = targetDate.getFullYear();
+    const month = String(targetDate.getMonth() + 1).padStart(2, '0'); // Month is 0-indexed
+    const day = String(targetDate.getDate()).padStart(2, '0');
+
+    return `${year}-${month}-${day}`;
+}
+
+
+export { addCalendar, getCalendar, parseCalendar, checkClasses, constructEmbed, getDateFromString};
