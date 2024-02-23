@@ -3,6 +3,7 @@ import fs from 'fs';
 function createUserEntry(userId) {
     const newUser = {
         userId: userId,
+		realName: "",
         imageUrl: "",
         calLink: ""
     }
