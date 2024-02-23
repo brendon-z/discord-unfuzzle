@@ -132,6 +132,7 @@ async function constructEmbed(client, target = 'everyone', date = 'today') {
 
         if (day !== "Saturday" && day !== "Sunday") {
             let atUni = await checkClasses(target, date);
+            let userMap = loadPersist();
             onCampusEmbed = {
                 color: 0x8300FF,
                 title: `On campus: ${day}`,
@@ -142,20 +143,51 @@ async function constructEmbed(client, target = 'everyone', date = 'today') {
                 },
             }
     
+            // List classes by name
+
+            // for (let [user, classes] of atUni) {
+            //     let classStr = ""
+            //     let indicator = false
+            //     for (let c of classes.sort(timeSort)) {
+            //         if (c.time.isBefore(currTime) && indicator === false) {
+            //             classStr += c.time.format('h:mm a') + ': ' + c.className + ' at ' + c.location + '\n'; // change later
+            //             indicator = true
+            //         } else {
+            //             classStr += c.time.format('h:mm a') + ': ' + c.className + ' at ' + c.location + '\n';
+            //         }
+            //     }
+            //     let userField = {name: (await client.users.fetch(user)).username, value: classStr}
+            //     onCampusEmbed.fields.push(userField);
+            // }
+
+            // List classes by time
+
+            let times = new Map();
+
             for (let [user, classes] of atUni) {
-                let classStr = ""
-                let indicator = false
-                for (let c of classes.sort(timeSort)) {
-                    if (c.time.isBefore(currTime) && indicator === false) {
-                        classStr += c.time.format('h:mm a') + ': ' + c.className + ' at ' + c.location + '\n'; // change later
-                        indicator = true
+                for (let c of classes) {
+                    let realName = (await client.users.fetch(user)).username
+                    if (userMap.has(user) && userMap.get(user).realName != "") {
+                        realName = userMap.get(user).realName;
+                    }
+                    if (!times.has(c.time.format('h:mm a'))) {
+                        times.set(c.time.format('h:mm a'), [realName + ' – ' + c.className + ' at ' + c.location]);
                     } else {
-                        classStr += c.time.format('h:mm a') + ': ' + c.className + ' at ' + c.location + '\n';
+                        times.get(c.time.format('h:mm a')).push(realName + ' – ' + c.className + ' at ' + c.location)
                     }
                 }
-                let userField = {name: (await client.users.fetch(user)).username, value: classStr}
-                onCampusEmbed.fields.push(userField);
             }
+            let listOfFields = []
+            for (let [time, classes] of times.entries()) {
+                let timeField = {name: time, value: classes.join('\n')};
+                listOfFields.push(timeField);
+            }
+            listOfFields.sort(timeSort)
+
+            for (let field of listOfFields) {
+                onCampusEmbed.fields.push(field);
+            }
+
         } else {
             onCampusEmbed = {
                 color: 0x8300FF,
@@ -176,9 +208,9 @@ async function constructEmbed(client, target = 'everyone', date = 'today') {
 
 function timeSort(a, b) {
     // Convert the time strings to Date objects for comparison
-    const dateA = new Date(`01/01/2000 ${a.time.format('h:mm a')}`);
-    const dateB = new Date(`01/01/2000 ${b.time.format('h:mm a')}`);
-    
+    const dateA = new Date(`01/01/2000 ${a.name}`);
+    const dateB = new Date(`01/01/2000 ${b.name}`);
+
     // Compare the Date objects
     if (dateA < dateB) return -1;
     if (dateA > dateB) return 1;
