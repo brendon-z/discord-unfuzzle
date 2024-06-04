@@ -1,7 +1,7 @@
-const { SlashCommandBuilder } = require('@discordjs/builders');
-const { addCalendar } = require('../calendars/calendar');
+import { SlashCommandBuilder } from '@discordjs/builders';
+import { addCalendar } from '../utils/calendars/calendar.js';
 
-module.exports = {
+export default {
 	data: new SlashCommandBuilder()
 		.setName('calendar')
 		.setDescription('Add your uni calendar to my database (UNSW only)')

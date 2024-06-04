@@ -1,28 +1,33 @@
 import { SlashCommandBuilder } from '@discordjs/builders';
 import { constructEmbed, getDateFromString } from '../utils/calendars/calendar.js';
 
-module.exports = {
+export default {
 	data: new SlashCommandBuilder()
 		.setName('campus')
 		.setDescription('Check who is on campus')
-		.addStringOption(option => option.setName('day').setDescription('Get their timetable on a particular day')
+		.addStringOption(option => option
+			.setName('day')
+			.setDescription('Get their timetable on a particular day')
 			.addChoices(
-				{name: 'Monday', value: getDateFromString('monday')},
-				{name: 'Tuesday', value: getDateFromString('tuesday')},
-				{name: 'Wednesday', value: getDateFromString('wednesday')},
-				{name: 'Thursday', value: getDateFromString('thursday')},
-				{name: 'Friday', value: getDateFromString('friday')},
-				{name: 'Saturday', value: getDateFromString('saturday')},
-				{name: 'Sunday', value: getDateFromString('sunday')}
+				{name: 'Monday', value: 'monday'},
+				{name: 'Tuesday', value: 'tuesday'},
+				{name: 'Wednesday', value: 'wednesday'},
+				{name: 'Thursday', value: 'thursday'},
+				{name: 'Friday', value: 'friday'},
+				{name: 'Saturday', value: 'saturday'},
+				{name: 'Sunday', value: 'sunday'}
 			))
-        .addStringOption(option => option.setName('date').setDescription('Add a date (DD-MM-YYYY)')),
+        .addStringOption(option => option
+			.setName('date')
+			.setDescription('Add a date (DD-MM-YYYY)')),
+
 	async execute(interaction) {
-		let dayDate = interaction.options.getString("day");
+		let dayDate = interaction.options.getString('day');
 		let date = interaction.options.getString('date');
 
         if (!date) {
 			if (dayDate) {
-				date = dayDate
+				date = getDateFromString(dayDate)
 			} else {
 				date = "today";
 			}
