@@ -99,6 +99,7 @@ async function parseCalendar(link, date) {
             const start = moment(newDate)
             if (currDate.isSame(start, 'date') && event.location !== 'Online') {
                 // console.log('Recurrence start:', start, " today? " + currDate.isSame(start, 'date'));
+                console.log(dstOffset());
                 todaysClasses.push({className: event.summary, time: start.add(dstOffset(), 'hours'), location: event.location})
             }
         });
@@ -219,14 +220,16 @@ function timeSort(a, b) {
 
 // Note this is for southern hemisphere
 function dstOffset() {
-    let standardTimezoneOffset  = (new Date('2023-06-01')).getTimezoneOffset();
-    let dstTimezoneOffset = (new Date('2023-01-01')).getTimezoneOffset();
-    let isDST = standardTimezoneOffset !== dstTimezoneOffset;
-
-    if (isDST) {
-        return 11
+    let currentDate = new Date();
+    let midYearDate = new Date(currentDate.getFullYear(), 5, 1); // June 1st, likely standard time
+    let currentOffset = currentDate.getTimezoneOffset();
+    let midYearOffset = midYearDate.getTimezoneOffset();
+    
+    // Return the appropriate offset based on DST status
+    if (currentOffset < midYearOffset) {
+        return 11; // Assuming DST adds 1 hour (60 minutes)
     } else {
-        return 10
+        return 10;
     }
 }
 
