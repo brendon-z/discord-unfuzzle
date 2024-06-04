@@ -27,7 +27,6 @@ As you can see, if there's no key pair with the user (target) id, it uses a defa
 https://upload.wikimedia.org/wikipedia/commons/4/45/Double-compound-pendulum.gif
 
 If a key pair exists, the associated URL image is displayed.
-<<<<<<< HEAD
 =======
 
 ## Calendar support ##
@@ -37,4 +36,3 @@ To add a calendar use `/calendar` and enter your iCal link. The ics file is then
 
 To check everyone's calendar, use `campus`, with the option to choose the date to request. Invalid dates will simply return today's events.
 To check a specific user, use `where` with a required target username and an optional date similar to above.
->>>>>>> 4921f9091e361c5252fe82434b4d2d940d66b5b5
