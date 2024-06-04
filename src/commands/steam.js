@@ -1,15 +1,15 @@
-const { SlashCommandBuilder } = require('@discordjs/builders');
-const { getRecentGames, getSteamDetails } = require('../gameStats/steamStats');
-const moment = require('moment');
+import { SlashCommandBuilder } from '@discordjs/builders';
+import { getRecentGames, getSteamDetails } from '../utils/gameStats/steamStats.js';
+import moment from 'moment';
 
-module.exports = {
-	data: new SlashCommandBuilder()
-		.setName('steam')
-		.setDescription('Gets steam stats for user')
+export default {
+  data: new SlashCommandBuilder()
+    .setName('steam')
+    .setDescription('Gets steam stats for user')
     .addStringOption(option => option.setName('input').setDescription('Enter the steamId').setRequired(true)),
   async execute(interaction) {
     const steamId = interaction.options.getString('input');
-		await interaction.deferReply();
+    await interaction.deferReply();
 
     if (await getSteamDetails(steamId) === -1) {
       await interaction.editReply(`${steamId} doesn\'t use Steam!`);
@@ -32,9 +32,9 @@ module.exports = {
         ],
         image: {
           url: steamStats.avatar.large
-        },      
+        },
       }
       await interaction.editReply({ embeds: [statEmbed] })
     }
-	},
+  },
 };

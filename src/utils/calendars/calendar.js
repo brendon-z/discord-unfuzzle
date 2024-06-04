@@ -99,7 +99,6 @@ async function parseCalendar(link, date) {
             const start = moment(newDate)
             if (currDate.isSame(start, 'date') && event.location !== 'Online') {
                 // console.log('Recurrence start:', start, " today? " + currDate.isSame(start, 'date'));
-                console.log(dstOffset());
                 todaysClasses.push({className: event.summary, time: start.add(dstOffset(), 'hours'), location: event.location})
             }
         });
@@ -193,7 +192,7 @@ async function constructEmbed(client, target = 'everyone', date = 'today') {
             onCampusEmbed = {
                 color: 0x8300FF,
                 title: `Hey, it\'s ${day}`,
-                description: `You know people usually don't go to uni today right?`,
+                description: `If ur reading this ur dum`,
             }
         }
     } else {
@@ -237,17 +236,12 @@ function dstOffset() {
 function getDateFromString(dayString) {
     const daysOfWeek = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
     const today = new Date();
+    const targetDate = new Date();
     const currentDayOfWeek = today.getDay(); // 0 for Sunday, 1 for Monday, ..., 6 for Saturday
     const targetDayOfWeek = daysOfWeek.indexOf(dayString.toLowerCase());
 
-    let daysToAdd;
-    if (targetDayOfWeek >= currentDayOfWeek) {
-        daysToAdd = targetDayOfWeek - currentDayOfWeek;
-    } else {
-        daysToAdd = - (currentDayOfWeek - targetDayOfWeek);
-    }
-
-    const targetDate = new Date(today);
+    let daysToAdd = 0;
+    daysToAdd = targetDayOfWeek - currentDayOfWeek;
     targetDate.setDate(today.getDate() + daysToAdd);
 
     const year = targetDate.getFullYear();

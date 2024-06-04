@@ -1,7 +1,6 @@
-const { SlashCommandBuilder } = require('@discordjs/builders');
-const moment = require('moment');
+import { SlashCommandBuilder } from '@discordjs/builders';
 
-module.exports = {
+export default {
 	data: new SlashCommandBuilder()
 		.setName('booster')
 		.setDescription('Checks whether the target is a booster or not!')
