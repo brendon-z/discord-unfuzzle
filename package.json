@@ -21,7 +21,11 @@
     "prompt-sync": "^4.2.0",
     "r6api.js": "^4.3.0",
     "scraelmbr": "^1.0.1",
+<<<<<<< HEAD
+    "steam-js-api": "^1.1.0"
+=======
     "steam-js-api": "^1.1.0",
     "strip-ansi": "^7.1.0"
+>>>>>>> 4921f9091e361c5252fe82434b4d2d940d66b5b5
   }
 }
