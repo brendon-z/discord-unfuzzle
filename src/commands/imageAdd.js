@@ -1,7 +1,7 @@
-const { SlashCommandBuilder } = require('@discordjs/builders');
-const { addToMap, getImageUrl } = require('../userImages/userImages'); 
+import { SlashCommandBuilder } from '@discordjs/builders';
+import { addToMap, getImageUrl } from '../utils/userImages/userImages.js'; 
 
-module.exports = {
+export default {
 	data: new SlashCommandBuilder()
 		.setName('image')
 		.setDescription('Adds a cool image associated with you')
