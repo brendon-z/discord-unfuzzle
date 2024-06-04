@@ -193,7 +193,7 @@ async function constructEmbed(client, target = 'everyone', date = 'today') {
             onCampusEmbed = {
                 color: 0x8300FF,
                 title: `Hey, it\'s ${day}`,
-                description: `You know people usually don't go to uni today right?`,
+                description: `If ur reading this ur dum`,
             }
         }
     } else {
