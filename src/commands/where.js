@@ -8,23 +8,23 @@ export default {
         .addUserOption(option => option.setName('target').setDescription('User to find').setRequired(true))
 		.addStringOption(option => option.setName('day').setDescription('Get their timetable on a particular day')
 			.addChoices(
-				{name: 'Monday', value: getDateFromString('monday')},
-				{name: 'Tuesday', value: getDateFromString('tuesday')},
-				{name: 'Wednesday', value: getDateFromString('wednesday')},
-				{name: 'Thursday', value: getDateFromString('thursday')},
-				{name: 'Friday', value: getDateFromString('friday')},
-				{name: 'Saturday', value: getDateFromString('saturday')},
-				{name: 'Sunday', value: getDateFromString('sunday')}
-		))
+				{name: 'Monday', value: 'monday'},
+				{name: 'Tuesday', value: 'tuesday'},
+				{name: 'Wednesday', value: 'wednesday'},
+				{name: 'Thursday', value: 'thursday'},
+				{name: 'Friday', value: 'friday'},
+				{name: 'Saturday', value: 'saturday'},
+				{name: 'Sunday', value: 'sunday'}
+			))
 		.addStringOption(option => option.setName('date').setDescription('Get their timetable on (DD-MM-YYYY)')),
 	async execute(interaction) {
-        let target = interaction.options.getUser('target');
-		let dayDate = interaction.options.getString("day");
+		let target = interaction.options.getUser('target');
+		let dayDate = interaction.options.getString('day');
 		let date = interaction.options.getString('date');
 
         if (!date) {
 			if (dayDate) {
-				date = dayDate
+				date = getDateFromString(dayDate)
 			} else {
 				date = "today";
 			}
