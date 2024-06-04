@@ -1,7 +1,7 @@
 import { SlashCommandBuilder } from '@discordjs/builders';
 import { constructEmbed, getDateFromString } from '../utils/calendars/calendar.js';
 
-export default {
+module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('where')
 		.setDescription('Where is a specific user?')

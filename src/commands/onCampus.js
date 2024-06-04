@@ -1,7 +1,7 @@
 import { SlashCommandBuilder } from '@discordjs/builders';
 import { constructEmbed, getDateFromString } from '../utils/calendars/calendar.js';
 
-export default {
+module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('campus')
 		.setDescription('Check who is on campus')
