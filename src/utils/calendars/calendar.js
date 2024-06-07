@@ -1,10 +1,9 @@
 import ical from 'node-ical';
 import moment from 'moment-timezone';
-import http from 'http'; // or 'https' for HTTPS URLs
 import { DownloaderHelper } from 'node-downloader-helper';
+import 'dotenv/config';
 
 import { createUserEntry, savePersist, loadPersist, userCalendarExists } from '../../database/dbManage.js';
-import config from '../../../config.json' assert { type: "json" }
 
 function addCalendar(userId, calLink) {
     let userMap = loadPersist();
@@ -78,7 +77,7 @@ async function parseCalendar(link, date) {
         const event = data[k];
         if (event.type !== 'VEVENT' || !event.rrule) continue;
         
-        const dates = event.rrule.between(new Date(config.currentYear, 0, 1, 0, 0, 0, 0), new Date(config.currentYear, 11, 31, 0, 0, 0, 0))
+        const dates = event.rrule.between(new Date(process.env.CURR_YEAR, 0, 1, 0, 0, 0, 0), new Date(process.env.CURR_YEAR, 11, 31, 0, 0, 0, 0))
 
         if (dates.length === 0) continue;
 

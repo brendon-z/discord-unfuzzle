@@ -3,14 +3,7 @@ import fs from 'fs';
 import path from 'path';
 import { REST } from '@discordjs/rest';
 import { Routes } from 'discord-api-types/v9';
-
-// import config from '../../config.json' assert { type: "json" };
-// This is a hack because assert imports for json are experimental
-import { createRequire } from 'module';
-const require = createRequire(import.meta.url);
-const config = require('../../config.json');
-
-const { clientId, guildId, token } = config;
+import "dotenv/config";
 
 // Collect commands
 const commands = [];
@@ -24,8 +17,8 @@ for (const file of commandFiles) {
 }
 
 // Deploy commands
-const rest = new REST({ version: '9' }).setToken(token);
+const rest = new REST({ version: '9' }).setToken(process.env.TOKEN);
 
-rest.put(Routes.applicationGuildCommands(clientId, guildId), { body: commands })
+rest.put(Routes.applicationGuildCommands(process.env.CLIENT_ID, process.env.GUILD_ID), { body: commands })
 	.then(() => console.log('Successfully registered application commands.'))
 	.catch(console.error);
