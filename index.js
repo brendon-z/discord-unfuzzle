@@ -2,14 +2,8 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { Client, GatewayIntentBits, Partials, Collection, ActivityType } from 'discord.js';
 import cron from 'cron';
+import 'dotenv/config';
 import { constructEmbed } from './src/utils/calendars/calendar.js';
-
-import { createRequire } from 'module';
-const require = createRequire(import.meta.url);
-import config from './config.json' assert { type: "json" }
-
-// import config from './config.json' assert { type: "json" };
-// This is a hack because assert imports for json are experimental
 
 // Create new discord client instance
 const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.MessageContent], partials: [Partials.Channel] });
@@ -31,8 +25,8 @@ client.on('ready', () => {
 	console.log(`Logged in as ${client.user.tag}!`)
 	client.user.setActivity('/command', { type: ActivityType.Playing });
 	let scheduledMessage = new cron.CronJob('00 00 9 * * *', async () => {
-		const guild = client.guilds.cache.get(config.guildId);
-		const channel = guild.channels.cache.get(config.channelId);
+		const guild = client.guilds.cache.get(process.env.GUILD_ID);
+		const channel = guild.channels.cache.get(process.env.CHANNEL_ID);
 		let onCampusEmbed = await constructEmbed(client);
 		channel.send({ embeds : [onCampusEmbed] });
 	})
@@ -57,6 +51,6 @@ client.on('interactionCreate', async interaction => {
 });
 
 // Login bot using token
-client.login(config.token);
+client.login(process.env.TOKEN);
 
 export default client;
