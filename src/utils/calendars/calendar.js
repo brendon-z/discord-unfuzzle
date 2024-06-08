@@ -190,8 +190,8 @@ async function constructEmbed(client, target = 'everyone', date = 'today') {
         } else {
             onCampusEmbed = {
                 color: 0x8300FF,
-                title: `Hey, it\'s ${day}`,
-                description: `If ur reading this ur dum`,
+                title: `Hey, it\'s ${day}!`,
+                description: `If you have class on the weekend, I am truly sorry for you.`,
             }
         }
     } else {
@@ -239,9 +239,11 @@ function getDateFromString(dayString) {
     const currentDayOfWeek = today.getDay(); // 0 for Sunday, 1 for Monday, ..., 6 for Saturday
     const targetDayOfWeek = daysOfWeek.indexOf(dayString.toLowerCase());
 
-    let daysToAdd = 0;
-    daysToAdd = targetDayOfWeek - currentDayOfWeek;
-    targetDate.setDate(today.getDate() + daysToAdd);
+    if (targetDayOfWeek < currentDayOfWeek) {
+        targetDate.setDate(today.getDate() + (7 - currentDayOfWeek) + targetDayOfWeek);
+    } else {
+        targetDate.setDate(today.getDate() + targetDayOfWeek - currentDayOfWeek);
+    }
 
     const year = targetDate.getFullYear();
     const month = String(targetDate.getMonth() + 1).padStart(2, '0'); // Month is 0-indexed
