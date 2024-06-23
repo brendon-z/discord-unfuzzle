@@ -24,10 +24,10 @@ image: {
 },
 ```
 As you can see, if there's no key pair with the user (target) id, it uses a default image:
-https://upload.wikimedia.org/wikipedia/commons/4/45/Double-compound-pendulum.gif
+
+![image](https://upload.wikimedia.org/wikipedia/commons/4/45/Double-compound-pendulum.gif)
 
 If a key pair exists, the associated URL image is displayed.
-=======
 
 ## Calendar support ##
 This bot supports iCal calendars; this is intended to allow users to upload their calendar links for parsing and processing. Any user can then request everyone's or a specific user's calendar. Great for checking who's on campus and planning meetups.
@@ -35,4 +35,11 @@ This bot supports iCal calendars; this is intended to allow users to upload thei
 To add a calendar use `/calendar` and enter your iCal link. The ics file is then downloaded from the link and stored locally for faster retrieval and processing.
 
 To check everyone's calendar, use `campus`, with the option to choose the date to request. Invalid dates will simply return today's events.
+
+![image](https://github.com/brendon-z/discord-unfuzzle/assets/79083661/48c8c291-d828-4a9d-82bf-5a183e8f4937)
+
 To check a specific user, use `where` with a required target username and an optional date similar to above.
+
+![image](https://github.com/brendon-z/discord-unfuzzle/assets/79083661/d20aa45f-a46e-4276-84f1-3101fb23aa31)
+
+The output text might need a little tweaking depending on how your calendar formats its events!
