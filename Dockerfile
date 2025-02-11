@@ -1,6 +1,8 @@
 # Dockerfile
 FROM node:latest
 
+ENV TZ=Australia/Sydney
+
 WORKDIR /app
 
 COPY package*.json ./

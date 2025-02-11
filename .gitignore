@@ -4,7 +4,7 @@ node_modules
 saveState.json
 
 ## Potentially update this later
-calendars/calFiles 
+/calendars/calFiles
 
 config.json
 config.js
