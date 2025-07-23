@@ -27,7 +27,6 @@ As you can see, if there's no key pair with the user (target) id, it uses a defa
 https://upload.wikimedia.org/wikipedia/commons/4/45/Double-compound-pendulum.gif
 
 If a key pair exists, the associated URL image is displayed.
-=======
 
 ## Calendar support ##
 This bot supports iCal calendars; this is intended to allow users to upload their calendar links for parsing and processing. Any user can then request everyone's or a specific user's calendar. Great for checking who's on campus and planning meetups.
