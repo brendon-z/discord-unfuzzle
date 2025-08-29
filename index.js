@@ -4,6 +4,7 @@ import { Client, GatewayIntentBits, Partials, Collection, ActivityType } from 'd
 import cron from 'cron';
 import 'dotenv/config';
 import { constructEmbed } from './src/utils/calendars/calendar.js';
+import { maxUV, rateUV } from './src/utils/weather/uv_utils.js';
 
 // Create new discord client instance
 const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.MessageContent], partials: [Partials.Channel] });
@@ -28,7 +29,12 @@ client.on('ready', () => {
 		const guild = client.guilds.cache.get(process.env.GUILD_ID);
 		const channel = guild.channels.cache.get(process.env.CHANNEL_ID);
 		let onCampusEmbed = await constructEmbed(client);
-		channel.send({ embeds : [onCampusEmbed] });
+
+		const maxUvForecast = (await maxUV())[0];
+		const uvRating = rateUV(maxUvForecast);
+		const content = `Today's maximum UV index is forecast to be ${uvRating.index}, which is ${uvRating.rating}.\n${uvRating.recc}\n`;
+
+		channel.send({ content: content, embeds : [onCampusEmbed] });
 	})
 	scheduledMessage.start();
 });
