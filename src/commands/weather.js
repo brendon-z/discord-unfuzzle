@@ -1,5 +1,5 @@
 import { EmbedBuilder, SlashCommandBuilder } from '@discordjs/builders';
-import { getLocationFromCoords, getWeather, getWindDirection } from '../utils/weather/weather_utils.js';
+import { getWeather, getWindDirection } from '../utils/weather/weather_utils.js';
 
 export default {
     data: new SlashCommandBuilder()
@@ -15,30 +15,17 @@ export default {
         ),
     async execute(interaction) {
         await interaction.deferReply();
-        let lat = interaction.options.getNumber('latitude');
-        let long = interaction.options.getNumber('longitude');
-
-        if (!lat || !long) {
-            lat = -33.8727;
-            long = 151.2057;
-        }
+        let lat = interaction.options.getNumber('latitude') ?? undefined;
+        let long = interaction.options.getNumber('longitude') ?? undefined;
 
         await getWeather(lat, long).then(async weatherData => {
-            let locationString = 'Current weather';
-            try {
-                const loc = await getLocationFromCoords(lat, long);
-                locationString += ` in ${loc[0][0].name}`;
-            } catch (err) {
-                console.error("Error looking up location:", err);
-            }
-
             const weatherString = `Currently **${weatherData.current.temperature_2m} °C**\n` +
             `Cloud cover at **${weatherData.current.cloud_cover}%** with a **${weatherData.current.rain}%** chance of rain\n` +
             `Winds at **${weatherData.current.wind_speed_10m} km/h** from the **${getWindDirection(weatherData.current.wind_direction_10m)}** with wind gusts up to **${weatherData.current.wind_gusts_10m} km/h**`;
 
             const weatherEmbed = new EmbedBuilder()
                 .setColor(0x0099FF) // Hex color
-                .setTitle(locationString)
+                .setTitle(weatherData.locationString)
                 .setURL(`https://www.google.com/maps/@${lat},${long},15z/`)
                 .setDescription(weatherString)
                 .setTimestamp() // current time

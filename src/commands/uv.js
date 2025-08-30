@@ -35,7 +35,7 @@ export default {
             async data => {
                 const currUV = data.now.uvi;
                 const uvRating = rateUV(currUV);
-                await interaction.reply(`The current UV index is ${uvRating.index}, which is ${uvRating.rating}.\n${uvRating.recc}`);
+                await interaction.reply(`The current UV index is **${uvRating.index}**, which is **${uvRating.rating}**.\n${uvRating.recc}`);
             }
         )
 	},
