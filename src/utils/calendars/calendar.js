@@ -110,7 +110,6 @@ async function constructEmbed(client, target = 'everyone', date = 'today') {
     let day = moment().format('dddd')
 
     if (userCalendarExists(target) || target === 'everyone') {
-        let currTime = moment();
         if (date === 'today') {
             day = moment().format('dddd');
             date = moment().format('YYYY-MM-DD');
@@ -143,7 +142,7 @@ async function constructEmbed(client, target = 'everyone', date = 'today') {
             }
     
             // List classes by name
-
+            // let currTime = moment();
             // for (let [user, classes] of atUni) {
             //     let classStr = ""
             //     let indicator = false
@@ -176,6 +175,7 @@ async function constructEmbed(client, target = 'everyone', date = 'today') {
                     }
                 }
             }
+
             let listOfFields = []
             for (let [time, classes] of times.entries()) {
                 let timeField = {name: time, value: classes.join('\n')};

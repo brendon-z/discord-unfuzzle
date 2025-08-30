@@ -25,7 +25,7 @@ for (const file of commandFiles) {
 client.on('ready', () => {
 	console.log(`Logged in as ${client.user.tag}!`)
 	client.user.setActivity('/command', { type: ActivityType.Playing });
-	let scheduledMessage = new cron.CronJob('00 00 9 * * *', async () => {
+	let scheduledMessage = new cron.CronJob('0 0 9 * * *', async () => {
 		const guild = client.guilds.cache.get(process.env.GUILD_ID);
 		const channel = guild.channels.cache.get(process.env.CHANNEL_ID);
 		let onCampusEmbed = await constructEmbed(client);

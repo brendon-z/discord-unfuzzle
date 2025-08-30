@@ -23,7 +23,7 @@ export function rateUV(uv) {
 }
 
 // Gets the max UV forecast for today, defaults to Sydney
-export async function maxUV(lat, long) {
+export async function maxUV(lat = -33.8727, long = 151.2057) {
     if (!lat || !long) {
         lat = -33.8727;
         long = 151.2057;
