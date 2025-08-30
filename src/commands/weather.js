@@ -32,21 +32,15 @@ export default {
                 console.error("Error looking up location:", err);
             }
 
-            const weatherString = `Currently **${weatherData.current.temperature_2m} °C**
-            Cloud cover at **${weatherData.current.cloud_cover}%** with a **${weatherData.current.rain}%** chance of rain
-            Winds at **${weatherData.current.wind_speed_10m} km/h** from the **${getWindDirection(weatherData.current.wind_direction_10m)}** with wind gusts up to **${weatherData.current.wind_gusts_10m} km/h**`;
+            const weatherString = `Currently **${weatherData.current.temperature_2m} °C**\n` +
+            `Cloud cover at **${weatherData.current.cloud_cover}%** with a **${weatherData.current.rain}%** chance of rain\n` +
+            `Winds at **${weatherData.current.wind_speed_10m} km/h** from the **${getWindDirection(weatherData.current.wind_direction_10m)}** with wind gusts up to **${weatherData.current.wind_gusts_10m} km/h**`;
 
             const weatherEmbed = new EmbedBuilder()
                 .setColor(0x0099FF) // Hex color
                 .setTitle(locationString)
                 .setURL(`https://www.google.com/maps/@${lat},${long},15z/`)
-                // .setDescription('This is the main body text of the embed.')
-                .addFields(
-                    // { name: 'Regular field title', value: 'Some value here' },
-                    { name: '', value: weatherString },
-                    // { name: 'Inline field title', value: 'Some value here', inline: true },
-                    // { name: 'Another inline title', value: 'Some value here', inline: true },
-                )
+                .setDescription(weatherString)
                 .setTimestamp() // current time
                 .setFooter({ text: 'Weather data obtained from Open-Meteo.'});
 
