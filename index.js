@@ -51,7 +51,7 @@ client.on('ready', () => {
 			.setFooter({ text: 'Weather data obtained from Open-Meteo.'});
 
 		channel.send({ embeds : [weatherEmbed, onCampusEmbed] });
-	})
+	});
 	scheduledMessage.start();
 });
 
